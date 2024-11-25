@@ -21,6 +21,12 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
+    int optval = 1;
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) < 0) {
+    perror("setsockopt failed");
+    exit(EXIT_FAILURE);
+    }
+
     // Bind
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
@@ -40,22 +46,24 @@ int main() {
     }
 
     printf("Server is running on port %d...\n", PORT);
+    
 
     // Accept
     while (1) {
+        printf("New connection accepted...\n");
         client_socket = accept(server_fd, (struct sockaddr *)&client_addr, &client_len);
         if (client_socket == -1) {
             perror("Connection acceptance failed");
             continue;	
         }
-
+        printf("New client connected from IP address %s and port %d...\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
         pid_t pid = fork();
         if (pid == 0) {
             close(server_fd); 
-            process_request(client_socket);
+            process_request(client_socket);            
             close(client_socket);
             exit(0);
-        } else if (pid > 0) {
+        } else if (pid > 0) {            
             close(client_socket);
         } else {
             perror("Fork failed");
