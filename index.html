@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Server C</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        p, li {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-list, .directory-list, .file-types {
+            list-style-type: disc;
+        }
+
+        .feature-list li, .directory-list li, .file-types li {
+            margin-bottom: 10px;
+        }
+
+        .code-snippet {
+            background-color: #272727;
+            color: #dcdcdc;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>HTTP_server_C</h1>
+    <p>A lightweight HTTP server implementation in C that handles basic web requests, serves static files, generates directory listings, and supports CGI script execution.</p>
+</header>
+
+<section>
+    <h2>Features</h2>
+    <ul class="feature-list">
+        <li><strong>HTTP Request Handling</strong>: Processes GET and HEAD requests from web browsers</li>
+        <li><strong>Static File Serving</strong>: Serves various file types with appropriate types</li>
+        <li><strong>Directory Listing</strong>: Generates HTML listings for directory contents</li>
+        <li><strong>CGI Support</strong>: Executes and serves CGI scripts</li>
+        <li><strong>Concurrent Access</strong>: Handles multiple client connections using process forking</li>
+        <li><strong>Error Handling</strong>: Custom error pages with Arabic messages</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Configuration</h2>
+    <p><strong>Default settings:</strong></p>
+    <ul>
+        <li><strong>Port</strong>: 8080 (you can check if the port is in use by <code>lsof -i :8080</code>)</li>
+        <li><strong>Buffer Size</strong>: 2048 bytes</li>
+        <li><strong>Default page</strong>: index.html</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Building the Project</h2>
+    <p>1. Clone the repository</p>
+    <p>2. Build the project and run it</p>
+    <p>The server will start listening on port 8080 by default. (can be changed from <code>server.c</code>)</p>
+    <p>2. Access the server:</p>
+    <ul>
+        <li>Open a web browser and navigate to <code>http://localhost:8080</code> or any loopback IP with the chosen port.</li>
+        <li>Or use cURL from your terminal: <code>curl http://localhost:8080</code></li>
+    </ul>
+</section>
+
+<section>
+    <h2>Project Structure</h2>
+    <ul>
+        <li><strong>server.c</strong>: Main server implementation (socket handling and connection management)</li>
+        <li><strong>http.c</strong>: HTTP protocol implementation (request parsing, response generation)</li>
+        <li><strong>http.h</strong>: Header file containing function declarations and constants</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Supported Features</h2>
+    
+    <h3>1. Directory Listing</h3>
+    <p>When accessing a directory, the server generates an HTML page listing all files and subdirectories.</p>
+
+    <h3>2. File Serving</h3>
+    <p>Supports various file types including:</p>
+    <ul class="file-types">
+        <li>HTML (.html, .htm)</li>
+        <li>CSS (.css)</li>
+        <li>JavaScript (.js)</li>
+        <li>Images (.png, .jpg, .jpeg)</li>
+        <li>Text files (.txt)</li>
+    </ul>
+
+    <h3>3. CGI Execution</h3>
+    <p>Make sure the script is executable. If not, use: <code>chmod +x [script.cgi]</code></p>
+    <ul>
+        <li>Files with <code>.cgi</code> extension are executed as CGI scripts</li>
+        <li>Script output is captured and sent to the client</li>
+    </ul>
+
+    <h3>4. Error Handling</h3>
+    <p>Custom error pages for:</p>
+    <ul class="directory-list">
+        <li>400 Bad Request</li>
+        <li>403 Forbidden</li>
+        <li>404 Not Found</li>
+        <li>405 Method Not Allowed</li>
+        <li>500 Internal Server Error</li>
+    </ul>
+</section>
+
+<footer>
+    <p>&copy; 2024 Belal HTTP Server C. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
